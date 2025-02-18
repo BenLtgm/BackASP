@@ -1,21 +1,22 @@
-﻿using FilmStore.Services;
-using FilmStore.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using FilmModels;
+using FilmServices;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace FilmStore.Controllers;
+namespace FilmControllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class FilmsController : ControllerBase
+public class FilmController : ControllerBase
 {
-    private readonly FilmsService _filmsService;
+    private readonly FilmService _filmsService;
 
-    public FilmsController(FilmsService filmsService) => _filmsService = filmsService;
+    public FilmController(FilmService filmsService) 
+        => _filmsService = filmsService;
 
     [HttpGet]
-    public async Task<List<Film>> Get() 
-		=> await _filmsService.GetAsync();
+    public async Task<List<Film>> Get()
+        => await _filmsService.GetAsync();
 
     [HttpGet("{id:length(24)}")]
     [Authorize("get:film:specific")]

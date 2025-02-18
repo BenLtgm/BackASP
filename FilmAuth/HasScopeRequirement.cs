@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace FilmStore.Auth;
+namespace FilmAuth;
 
 public class HasScopeRequirement : IAuthorizationRequirement
 {

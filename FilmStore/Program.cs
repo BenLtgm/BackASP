@@ -1,14 +1,8 @@
-using ArtistStore.Services;
-using FilmStore.Services;
-using FilmStore.Models;
 using Scalar.AspNetCore;
-using FilmStore.Repositories;
-using FilmStore.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using FilmStore.Auth;
 using Microsoft.AspNetCore.Authorization;
-using System.Reflection.Metadata;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using FilmServices;
+using FilmAuth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,16 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ProjectDatabaseSettings>(
 	builder.Configuration.GetSection("IntergratedProject")
 );
-builder.Services.AddSingleton<FilmsService>();
-builder.Services.AddSingleton<ArtistsService>();
+builder.Services.AddSingleton<FilmService>();
+builder.Services.AddSingleton<ArtistService>();
 builder.Services.AddSingleton<DiscographyContext>();
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-builder.Services.AddScoped<ArtistRepository>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddCors(options => {
     options.AddDefaultPolicy(policy => {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:4200", "http://localhost:5036")
               .AllowCredentials()
               .AllowAnyHeader()
               .AllowAnyMethod();

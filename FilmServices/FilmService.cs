@@ -1,23 +1,23 @@
-﻿using Microsoft.Extensions.Options;
+﻿using FilmModels;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using FilmStore.Models;
 
-namespace FilmStore.Services;
+namespace FilmServices;
 
-public class FilmsService
+public class FilmService
 {
     private readonly IMongoCollection<Film> _filmsCollection;
 
-    public FilmsService(IOptions<ProjectDatabaseSettings> settings)
+    public FilmService(IOptions<ProjectDatabaseSettings> settings)
     {
         var mongoClient = new MongoClient(
-			settings.Value.ConnectionString);
+            settings.Value.ConnectionString);
 
         var mongoDatabase = mongoClient.GetDatabase(
-			settings.Value.DatabaseName);
+            settings.Value.DatabaseName);
 
         _filmsCollection = mongoDatabase.GetCollection<Film>(
-			settings.Value.FilmsCollectionName);
+            settings.Value.FilmsCollectionName);
     }
 
     public async Task<List<Film>> GetAsync() =>

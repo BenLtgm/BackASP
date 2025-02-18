@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace FilmStore.Models;
-
-public class Artist {
+namespace FilmModels;
+public class Artist
+{
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public String? Id { get; set; }
@@ -17,9 +17,9 @@ public class Artist {
     [BsonElement("listeners")]
     public int Listeners { get; set; }
 
-	[BsonElement("FilmIds")]
-	public List<string>? FilmIds { get; set; }
+    [BsonElement("FilmIds")]
+    public List<string>? FilmIds { get; set; }
 
-	[BsonIgnore]
-	public List<Film>? Films { get; set; }
+    [BsonIgnore]
+    public List<Film>? Films { get; set; }
 }
